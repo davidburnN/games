@@ -82,6 +82,22 @@ var canvasContext = canvas.getContext('2d')
 
 var shotdown = 0
 
+var binCount = Math.floor(canvas.width/snake.size)
+
+var footPrint = new Array(binCount)
+
+for (var i = 0; i<binCount; i ++){
+    footPrint[i] = new Array(binCount)
+}
+
+for (var i = 0; i<binCount; i ++){
+    for (var j = 0; j<binCount; j ++){
+        footPrint[i][j] = 0
+    }
+}
+
+// console.log(footPrint)
+
 window.onload = ()=>{
     gameLoop();
 }
@@ -103,7 +119,7 @@ function ending(){
 }
 
 function show(){
-    update();
+    // update();
     draw();
     if(shotdown == 1){
         window.clearInterval(intervalID)
