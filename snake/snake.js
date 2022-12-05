@@ -61,6 +61,16 @@ class Apple{
     }
 }
 
+class EndingPost{
+    constructor(width, height){
+        this.width = width 
+        this.height = height
+        this.x = Math.floor((canvas.width-this.width)/2)
+        this.y = Math.floor((canvas.height-this.height)/2)
+        this.color = 'white'
+    }
+}
+
 
 var canvas = document.getElementById("canvas")
 
@@ -70,17 +80,35 @@ var apple = new Apple()
 
 var canvasContext = canvas.getContext('2d')
 
+var shotdown = 0
+
 window.onload = ()=>{
     gameLoop();
 }
 
 function gameLoop(){
-    setInterval(show, 1000/5) //here 15 is our fps value
+    intervalID = setInterval(show, 1000/5) //here 15 is our fps value
+    
+}
+
+function ending(){
+    var ending = new EndingPost(300, 200)
+    createRect(0,0,canvas.width, canvas.height, "black")
+    createRect(ending.x, ending.y, ending.width, ending.height, "white")
+    canvasContext.font = "20px Arial"
+    canvasContext.fillStyle = "black"
+    canvasContext.textAlign = 'center'
+    canvasContext.fillText("You died. Final score: " + (snake.tail.length + 1),
+    ending.x+ending.width/2, ending.y+ending.height/2);
 }
 
 function show(){
-    // update();
+    update();
     draw();
+    if(shotdown == 1){
+        window.clearInterval(intervalID)
+        ending()
+    }
 }
 
 
@@ -90,6 +118,11 @@ function update(){
     snake.move()
     eatApple()
     checkHitWall()
+    checkHitBody()
+}
+
+function checkHitBody(){
+    // if(headTail.x == )
 }
 
 function checkHitWall(){
@@ -109,7 +142,8 @@ function eatApple(){
     if(snake.tail[snake.tail.length - 1].x == apple.x && 
         snake.tail[snake.tail.length - 1].y == apple.y){
             snake.tail[snake.tail.length] = {x:apple.x, y:apple.y}
-            apple = new Apple();
+            apple = new Apple()
+            
         }
 }
 
