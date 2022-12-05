@@ -75,7 +75,7 @@ window.onload = ()=>{
 }
 
 function gameLoop(){
-    setInterval(show, 1000/15) //here 15 is our fps value
+    setInterval(show, 1000/5) //here 15 is our fps value
 }
 
 function show(){
@@ -115,7 +115,6 @@ function eatApple(){
 
 function draw(){
     createRect(0,0,canvas.width, canvas.height, "black")
-    createRect(0,0,canvas.width, canvas.height)
     for(var i = 0; i < snake.tail.length; i++){
         createRect(snake.tail[i].x + 2.5, snake.tail[i].y + 2.5,
             snake.size - 5, snake.size - 5, 'white')
